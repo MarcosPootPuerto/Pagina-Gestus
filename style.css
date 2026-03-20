@@ -1,0 +1,76 @@
+/* ==========================================================================
+   2. NAVBAR (ESTRUCTURA, LOGO Y CAPAS CORREGIDAS)
+   ========================================================================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary-color);
+    padding: 0 5%;
+    height: var(--navbar-height);
+    width: 100%;
+    position: fixed; 
+    top: 0;          
+    z-index: 10000;  /* Asegura que el logo y el menú estén siempre al frente */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+/* Contenedor del logo corregido */
+.logo {
+    display: flex;
+    align-items: center;
+    z-index: 10001; /* Un nivel por encima de la navbar */
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 15px; /* Espacio equilibrado entre imagen y texto */
+    transition: var(--transition);
+}
+
+.logo-link:hover {
+    filter: brightness(1.2); /* Efecto sutil al pasar el mouse */
+}
+
+.logo-img {
+    height: 50px; /* Tamaño optimizado para visibilidad */
+    width: auto;
+    display: block;
+    object-fit: contain;
+    /* Filtro opcional si el logo es oscuro y lo quieres blanco: filter: brightness(0) invert(1); */
+}
+
+.logo-texto {
+    color: var(--white);
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Enlaces en Escritorio */
+.nav-links {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 25px;
+}
+
+/* Media Queries para ajuste de Logo en Móvil */
+@media screen and (max-width: 991px) {
+    .logo-img {
+        height: 40px; /* Logo más compacto en tablets/celulares */
+    }
+    .logo-texto {
+        font-size: 1.3rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .logo-texto {
+        display: none; /* Opcional: oculta el texto en pantallas muy pequeñas para dejar espacio al logo */
+    }
+}

@@ -1,0 +1,58 @@
+/* 1. Ajuste del Body para centrar la tarjeta */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #F4F7F6;
+
+    /* Esto centra la login-card horizontal y verticalmente */
+    display: flex;
+    flex-direction: column; /* Pone el navbar arriba y el contenido abajo */
+    min-height: 100vh;      /* Asegura que el body ocupe toda la altura de la pantalla */
+}
+
+/* 2. El Navbar se queda en su sitio */
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+    background-color: #2C5697;
+    width: 100%;
+    /* No tocamos nada más aquí, Flexbox lo mantendrá arriba */
+}
+
+/* Contenedor del Logo y el Texto */
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;               /* Espacio entre logo y GESTUS */
+}
+
+/* Ajustes de la Imagen */
+.logo-img {
+    height: 40px;            /* Tamaño del logo */
+    width: auto;
+}
+
+/* Ajustes del Texto GESTUS */
+.logo-text {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+/* 3. Centrado de la Tarjeta */
+.login-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px; /* Ancho máximo de la tarjeta */
+    
+    /* MAGIA: Margen automático arriba y abajo para centrar en el espacio sobrante */
+    margin: auto; 
+}

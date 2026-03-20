@@ -1,0 +1,135 @@
+/* Importación de fuente */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&display=swap');
+
+/* ==========================================================================
+   SECCIÓN DE PLANES / PRODUCTOS - DISEÑO FINAL
+   ========================================================================== */
+.planes-pagina {
+    font-family: 'Montserrat', sans-serif;
+    padding: 80px 8%;
+    background-color: #f9f9f9;
+}
+
+.titulo-planes {
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #1a365d;
+    margin-bottom: 50px;
+    letter-spacing: -1px;
+}
+
+.planes-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 30px;
+    flex-wrap: wrap; 
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- TARJETA BASE --- */
+.plan-card {
+    background: #fff;
+    padding: 40px 30px;
+    flex: 1;
+    min-width: 300px;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border: 3px solid #007BFF; /* Marco azul por defecto */
+    position: relative; /* Necesario para el sello */
+    overflow: visible;  /* Permite que el sello sobresalga */
+}
+
+/* --- TARJETA DESTACADA --- */
+.plan-card.destacado {
+    border: 3px solid #ff5722; 
+    transform: scale(1.05); 
+    box-shadow: 0 20px 40px rgba(255, 87, 34, 0.15);
+    z-index: 1;
+}
+
+.plan-card h3 {
+    font-weight: 700;
+    font-size: 1.4rem;
+    margin-bottom: 25px;
+    line-height: 1.2;
+    text-align: center;
+    color: #333;
+    text-transform: uppercase;
+}
+
+.plan-card.destacado h3 {
+    color: #ff5722;
+}
+
+/* --- SELLO DE PRUEBA (PEGATINA) --- */
+.sello-prueba {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 90px;
+    height: 90px;
+    background-color: #ff5722;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(255, 87, 34, 0.4);
+    transform: rotate(-15deg);
+    z-index: 10;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.sello-texto-superior { font-size: 0.6rem; font-weight: 400; letter-spacing: 1px; }
+.sello-texto-grande { font-size: 1.2rem; font-weight: 900; line-height: 1; margin: 2px 0; }
+.sello-texto-inferior { font-size: 0.7rem; font-weight: 700; }
+
+/* --- LISTA Y BOTONES --- */
+.lista-beneficios {
+    list-style: none;
+    margin-bottom: 40px;
+    flex-grow: 1; 
+    padding: 0;
+}
+
+.lista-beneficios li {
+    padding: 14px 0;
+    border-bottom: 1px solid #eee;
+    color: #444;
+    font-size: 0.95rem;
+}
+
+.btn-plan {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+}
+
+/* Colores de botones según tarjeta */
+.plan-card:not(.destacado) .btn-plan { background-color: #007BFF; color: #fff; }
+.destacado .btn-plan { background-color: #ff5722; color: #fff; }
+
+.btn-plan:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+/* Responsivo */
+@media screen and (max-width: 992px) {
+    .plan-card.destacado { transform: scale(1); }
+    .planes-container { flex-direction: column; align-items: center; }
+}

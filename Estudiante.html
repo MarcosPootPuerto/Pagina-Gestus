@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Estudiante</title>
+    <link rel="icon" href="img/examen topicos.png" type="image/png">
+    <link rel="stylesheet" href="css/Estudiante.css">
+    <link rel="stylesheet" href="css/Formularios.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="nav-logo">
+            <img src="img/examen topicos.png" alt="Logo de Gestus" class="logo-img">
+            <span class="logo-text">GESTUS</span>
+        </div>
+    </header>
+
+    <div class="login-card">
+        <span class="close-btn"><a href="index.html">&times;</a></span>
+
+        <h3 class="blue-title">REGISTRARSE COMO ESTUDIANTE</h3>
+
+        <form action="Estudiantes.php" method="POST">
+
+            <input type="text" name="nombre" placeholder="Nombre completo" required>
+
+            <input type="email" name="correo" placeholder="Correo electrónico" required>
+
+            <input type="password" name="password" placeholder="Contraseña" required>
+
+            <button type="submit" class="submit-btn">REGISTRARSE</button>
+
+        </form>
+
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+        <div id="g_id_onload"
+            data-client_id="825367747434-9pcfejfcmpnjtbsvaeu00bfbo231ar66.apps.googleusercontent.com"
+            data-callback="handleCredentialResponse">
+        </div>
+        <div class="g_id_signin" data-type="standard"></div>
+
+        <script>
+        function handleCredentialResponse(response) {
+            // Aquí recibes el token de Google
+            console.log("Encoded JWT ID token: " + response.credential);
+            
+            // Lo ideal es enviar este token a tu PHP para validarlo
+            // Por ahora, esto conectará el clic con tu sistema.
+        }
+        </script>
+    </div>
+
+</body>
+</html>
+```

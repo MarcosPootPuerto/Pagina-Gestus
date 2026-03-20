@@ -1,0 +1,88 @@
+/* ===== ESTILO DEL FOOTER (STRICTURE) ===== */
+footer {
+    background-color: #1a365d; /* Azul profundo profesional */
+    color: #ffffff;
+    padding: 60px 8% 20px;
+    flex-shrink: 0; /* Propiedad clave para que no se achique en el layout flex */
+    width: 100%;
+}
+
+.footer__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.footer__col {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer__col h4 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.footer__logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.footer__description {
+    font-size: 0.95rem;
+    opacity: 0.8;
+    line-height: 1.6;
+    max-width: 400px;
+}
+
+.footer__links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer__links li {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.footer__links i {
+    color: #ff5722; /* Color de acento para los iconos */
+}
+
+/* Barra inferior de Copyright */
+.footer__bar {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.85rem;
+    opacity: 0.6;
+    width: 100%;
+}
+
+/* Ajuste para dispositivos móviles */
+@media screen and (max-width: 768px) {
+    footer {
+        padding: 40px 5% 20px;
+        text-align: center;
+    }
+
+    .footer__container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer__links li {
+        justify-content: center;
+    }
+}
