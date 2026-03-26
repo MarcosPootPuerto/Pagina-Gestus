@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificaciones - Gestus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-orange: #FF5722;
+            --deep-blue: #2C5697;
+            --bg-neutral: #F4F7F6;
+            --white: #FFFFFF;
+            --text-main: #333;
+            --text-muted: #7f8c8d;
+
+            /* Colores para estados */
+            --color-alert: #e74c3c;
+            /* Rojo suave para alertas */
+            --color-success: #2ecc71;
+            /* Verde para logros */
+            --color-info: #3498db;
+            /* Azul para info sistema */
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-neutral);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .notifications-panel {
+            background: var(--white);
+            width: 100%;
+            max-width: 600px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(44, 86, 151, 0.08);
+            /* Sombra suave azulada */
+            overflow: hidden;
+            /* Para que el header redondeado funcione */
+            position: relative;
+        }
+
+        /* Encabezado del Panel */
+        .panel-header {
+            background-color: var(--deep-blue);
+            color: var(--white);
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-header h2 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .mark-read-btn {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .mark-read-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Contenedor de la lista */
+        .notifications-list {
+            padding: 10px 0;
+            max-height: 500px;
+            /* Para scroll si hay muchas */
+            overflow-y: auto;
+        }
+
+        /* Estilo de la Tarjeta Individual (Feed Style) */
+        .notification-card {
+            display: flex;
+            padding: 20px 30px;
+            border-bottom: 1px solid #f0f3f5;
+            transition: background-color 0.2s, transform 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .notification-card:last-child {
+            border-bottom: none;
+        }
+
+        .notification-card:hover {
+            background-color: #fafbfc;
+            transform: translateX(5px);
+            /* Microinteracción al pasar el mouse */
+        }
+
+        /* Indicador de "No Leído" (Punto Naranja) */
+        .notification-card.unread::after {
+            content: '';
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary-orange);
+            border-radius: 50%;
+        }
+
+        /* Iconos y sus contenedores */
+        .icon-container {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+            /* Para que no se encoja */
+            font-size: 1.2rem;
+        }
+
+        /* Colores por tipo de icono */
+        .icon-alert {
+            background-color: #fde8e8;
+            color: var(--color-alert);
+        }
+
+        .icon-success {
+            background-color: #eafaf1;
+            color: var(--color-success);
+        }
+
+        .icon-info {
+            background-color: #eaf4fb;
+            color: var(--color-info);
+        }
+
+        /* Contenido del texto */
+        .card-content {
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 0 0 5px 0;
+            font-size: 0.95rem;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .card-time {
+            font-size: 0.75rem;
+            color: #bdc3c7;
+            margin-top: 8px;
+            display: block;
+        }
+
+        /* Tachita para cerrar el panel (UX) */
+        .close-panel-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .close-panel-btn:hover {
+            color: var(--white);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="notifications-panel">
+        <a href="enrollment.html" class="close-panel-btn"><i class="fas fa-times"></i></a>
+
+        <div class="panel-header">
+            <h2>Notificaciones</h2>
+            <button class="mark-read-btn" onclick="marcarTodasLeidas()">Marcar todas como leídas</button>
+        </div>
+
+        <div class="notifications-list">
+
+            <div class="notification-card unread" onclick="marcarLeida(this)">
+                <div class="icon-container icon-alert">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="card-content">
+                    <p class="card-title">Alerta de Seguridad Importante</p>
+                    <p class="card-desc">Se detectó un intento de acceso bloqueado desde la IP 192.168.1.15. Por favor
+                        revisa tu historial.</p>
+                    <span class="card-time"><i class="far fa-clock"></i> Hace 10 min</span>
+                </div>
+            </div>
+
+            <div class="notification-card" onclick="marcarLeida(this)">
+                <div class="icon-container icon-success">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <div class="card-content">
+                    <p class="card-title">¡Nuevo Logro Dominado!</p>
+                    <p class="card-desc">Has completado el entrenamiento de la seña "Gracias" con un 95% de precisión.
+                    </p>
+                    <span class="card-time"><i class="far fa-clock"></i> Hace 2 horas</span>
+                </div>
+            </div>
+
+            <div class="notification-card" onclick="marcarLeida(this)">
+                <div class="icon-container icon-info">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <div class="card-content">
+                    <p class="card-title">Actualización del Sistema Gestus</p>
+                    <p class="card-desc">El modelo de visión artificial ha sido optimizado para condiciones de baja luz.
+                    </p>
+                    <span class="card-time"><i class="far fa-clock"></i> Ayer</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Función simulada para marcar una individual como leída
+        function marcarLeida(card) {
+            // Quitamos el punto naranja
+            card.classList.remove('unread');
+
+            // Efecto visual de desvanecimiento suave para indicar que se leyó
+            card.style.opacity = '0.7';
+
+            // En una app real, aquí guardaríamos el estado en localStorage
+        }
+
+        // Función simulada para marcar todas
+        function marcarTodasLeidas() {
+            document.querySelectorAll('.notification-card').forEach(card => {
+                marcarLeida(card);
+            });
+            alert("Todas las notificaciones marcadas como leídas.");
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GESTUS - Tecnología Inclusiva</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!--
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/menu.css">
+    -->
+
+    <style>
+        /*=================================================Style.css================================================*/
+        /*VARIABLES Y CONFIGURACIÓN BASE*/
+        :root {
+            --primary-color: #2c5697;
+            --accent-color: #ff5722;
+            --white: #ffffff;
+            --bg-light: #f4f7f6;
+            --navbar-height: 70px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            height: 100%;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /*CONTENIDO PRINCIPAL Y STRIPES (RECTÁNGULOS)*/
+        .main-content {
+            margin-top: var(--navbar-height);
+            flex: 1 0 auto;
+        }
+
+        .header-swiper {
+            width: 100%;
+            height: calc(100vh - var(--navbar-height));
+            background-color: #000;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* Estilos de los Rectángulos Informativos */
+        .info-stripe {
+            width: 100%;
+            padding: 100px 8%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .blue-bg {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .white-bg {
+            background-color: var(--white);
+            color: var(--primary-color);
+        }
+
+        .stripe-container {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .stripe-title h2 {
+            font-size: 2.8rem;
+            font-weight: bold;
+            line-height: 1.1;
+        }
+
+        .stripe-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .stripe-content p {
+            font-size: 1.15rem;
+            opacity: 0.9;
+        }
+
+        .dark-text {
+            color: #333 !important;
+        }
+
+        /*MODALES (LOGIN Y CREAR CUENTA)*/
+        .modal {
+            display: none;
+            /* Se activa con JS */
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 8, 20, 0.85);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 40px;
+            width: 95%;
+            max-width: 420px;
+            border-radius: 0;
+            /* Totalmente cuadrado según capturas */
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            animation: fadeInModal 0.4s ease;
+        }
+
+        @keyframes fadeInModal {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            text-transform: none;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 0;
+            /* Inputs cuadrados */
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .modal-input:focus {
+            border-color: var(--accent-color);
+        }
+
+        /* Botón Naranja Principal (ENTRAR / REGISTRARSE) */
+        .btn-entrar {
+            width: 100%;
+            padding: 14px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-entrar:hover {
+            background-color: #e64a19;
+        }
+
+        /* Botón de Google */
+        .btn-google {
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .btn-google:hover {
+            background-color: #f9f9f9;
+        }
+
+        .btn-google img {
+            width: 18px;
+        }
+
+        /* Botón cerrar (X) */
+        .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #aaa;
+            transition: var(--transition);
+        }
+
+        .close-btn:hover {
+            color: var(--text-dark);
+        }
+
+        /*AJUSTES RESPONSIVE*/
+        @media screen and (max-width: 992px) {
+            .stripe-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                text-align: center;
+            }
+
+            .stripe-title h2 {
+                font-size: 2.2rem;
+            }
+
+            .modal-content {
+                padding: 30px 20px;
+            }
+        }
+
+        /*======================================================Footer.css=====================================================*/
+        /*ESTILO DEL FOOTER (STRICTURE)*/
+        footer {
+            background-color: #1a365d;
+            /* Azul profundo profesional */
+            color: #ffffff;
+            padding: 60px 8% 20px;
+            flex-shrink: 0;
+            /* Propiedad clave para que no se achique en el layout flex */
+            width: 100%;
+        }
+
+        .footer__container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .footer__col {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer__col h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .footer__logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .footer__description {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            line-height: 1.6;
+            max-width: 400px;
+        }
+
+        .footer__links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer__links li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .footer__links i {
+            color: #ff5722;
+            /* Color de acento para los iconos */
+        }
+
+        /* Barra inferior de Copyright */
+        .footer__bar {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.85rem;
+            opacity: 0.6;
+            width: 100%;
+        }
+
+        /* Ajuste para dispositivos móviles */
+        @media screen and (max-width: 768px) {
+            footer {
+                padding: 40px 5% 20px;
+                text-align: center;
+            }
+
+            .footer__container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer__links li {
+                justify-content: center;
+            }
+        }
+
+        /*==========================================================Menú.css==================================================*/
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            /* Distribuye Logo -- Enlaces -- Botones */
+            align-items: center;
+            background-color: var(--primary-color);
+            padding: 0 5%;
+            /* Espacio lateral para que no pegue a las orillas */
+            height: var(--navbar-height);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 1. LOGO (Alineado a la izquierda) */
+        .logo {
+            flex: 1;
+            font-size: 26px;
+            font-weight: 800;
+            /* Más grueso como en la imagen */
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* 2. ENLACES DE NAVEGACIÓN (Centrados perfectamente) */
+        .nav-links {
+            flex: 2;
+            /* Ocupa más espacio central */
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 35px;
+            /* Espaciado entre palabras */
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            /* Mayúsculas como en image_531422.png */
+            transition: var(--transition);
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* 3. BOTONES DE ACCIÓN (Alineados a la derecha) */
+        .nav-buttons {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        /* Estilo de botones "Píldora" */
+        .btn-login,
+        .btn-register {
+            text-decoration: none;
+            padding: 9px 28px;
+            border-radius: 50px;
+            /* Bordes totalmente redondeados */
+            font-size: 14px;
+            font-weight: 700;
+            transition: var(--transition);
+            white-space: nowrap;
+            /* Evita que el texto se parta en dos líneas */
+        }
+
+        /* Botón Iniciar Sesión (Borde Blanco) */
+        .btn-login {
+            border: 2px solid var(--white);
+            color: var(--white);
+            background: transparent;
+        }
+
+        .btn-login:hover {
+            background: var(--white);
+            color: var(--primary-color);
+        }
+
+        /* Botón Registrarse (Naranja Sólido) */
+        .btn-register {
+            background-color: var(--accent-color);
+            color: var(--white);
+            border: 2px solid var(--accent-color);
+        }
+
+        .btn-register:hover {
+            background-color: #e64a19;
+            border-color: #e64a19;
+        }
+
+        /* Ocultar elementos móviles en escritorio */
+        .mobile-only {
+            display: none !important;
+        }
+
+        /*RESPONSIVE PARA MÓVIL*/
+        @media screen and (max-width: 1024px) {
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-links a {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">GESTUS</div>
+        <ul class="nav-links" id="nav-menu">
+            <li><a href="planes.html">Planes</a></li>
+            <li><a href="videollamada.html">Videollamada</a></li>
+            <li><a href="notificaciones.html">Notificaciones</a></li>
+            <li><a href="perfil.html">Perfil</a></li>
+        </ul>
+
+        <div id="user-profile" style="display: none; align-items: center; gap: 10px; color: white;">
+            <span id="user-name" style="font-weight: bold;"></span>
+            <button id="logout-btn"
+                style="background:transparent; border:1px solid #ff5722; color:white; padding:4px 10px; cursor:pointer;">Salir</button>
+        </div>
+
+        <div class="burger" id="burger-menu">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <header id="home">
+            <div class="swiper header-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="img/imagen_4.png" alt="Img 1"></div>
+                    <div class="swiper-slide"><img src="img/imagen_5.png" alt="Img 2"></div>
+                    <div class="swiper-slide"><img src="img/imagen_6.png" alt="Img 3"></div>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </header>
+
+        <section id="nosotros" class="info-stripe blue-bg">
+            <div class="stripe-container">
+                <div class="stripe-title">
+                    <h2>Sobre nosotros</h2>
+                </div>
+                <div class="stripe-content">
+                    <h3>¿Qué es Gestus?</h3>
+                    <p>Gestus es una aplicación integrada en Microsoft Teams diseñada para facilitar la comunicación
+                        bidireccional entre estudiantes sordos y profesores en entornos educativos virtuales.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Misión -->
+        <section id="mision" class="info-stripe white-bg">
+            <div class="stripe-container">
+                <div class="stripe-title">
+                    <h2 class="dark-text">Nuestra Misión</h2>
+                </div>
+                <div class="stripe-content">
+                    <h3 class="dark-text">Inclusión Total</h3>
+                    <p class="dark-text">Transformar la educación mediante tecnología inclusiva que rompe barreras de
+                        comunicación, permitiendo que cada estudiante alcance su máximo potencial.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="vision" class="info-stripe blue-bg">
+            <div class="stripe-container">
+                <div class="stripe-title">
+                    <h2>Nuestra visión</h2>
+                </div>
+                <div class="stripe-content">
+                    <h3>¿Para qué hacemos lo que hacemos?</h3>
+                    <p>Buscamos ser la solución tecnológica líder en inclusión educativa para personas sordas en México,
+                        eliminando las barreras de comunicación en entornos virtuales mediante el uso de inteligencia
+                        artificial.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="footer__container">
+            <div class="footer__col">
+                <div class="footer__logo">GESTUS</div>
+                <p>Transformando la educación mediante tecnología inclusiva.</p>
+            </div>
+            <div class="footer__col">
+                <h4>Contáctanos</h4>
+                <ul class="footer__links">
+                    <li><i class="ri-mail-line"></i> info@gestus.edu</li>
+                    <li><i class="ri-map-pin-line"></i> México</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bar">
+            Copyright © 2025 GESTUS. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/script2.js"></script>
+    <script src="js/script3.js"></script>
+</body>
+
+</html>
